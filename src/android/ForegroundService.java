@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.app.NotificationChannel;
+import android.graphics.Color;
 
 import org.json.JSONObject;
 
@@ -201,7 +202,7 @@ public class ForegroundService extends Service {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent contentIntent = PendingIntent.getActivity(
                     context, NOTIFICATION_ID, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
 
             notification.setContentIntent(contentIntent);
@@ -285,7 +286,7 @@ public class ForegroundService extends Service {
             return;
 
         try {
-            int aRGB = Integer.parseInt(hex, 16) + 0xFF000000;
+            int aRGB = Color.parseColor(hex);
             notification.setColor(aRGB);
         } catch (Exception e) {
             e.printStackTrace();
